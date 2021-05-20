@@ -73,36 +73,37 @@ def rounds(list1, list2):
 
 
 # Main program
-print('Assuming that the side-deck must have an even number of cards...')
+if __name__ == '__main__':
+    print('Assuming that the side-deck must have an even number of cards...')
 
-menu("SIDE-DECK")
+    menu("SIDE-DECK")
 
-while True:
-    # Making sure that the game is playable.
-    try:
-        deck = int(input('How many cards does this side-deck have?(Max 52.) '))
-        if deck > 52:
-            print('\033[31m[ERRO]\033[m Please type an number under or equal to 52.')
+    while True:
+        # Making sure that the game is playable.
+        try:
+            deck = int(input('How many cards does this side-deck have?(Max 52.) '))
+            if 52 < deck or deck <= 0:
+                print('\033[31m[ERRO]\033[m Please type an even integer between 2 and 52.')
+                continue
+            elif deck % 2 == 0 and deck <= 52:
+                break
+            elif deck % 2 == 1:
+                print('\033[31m[ERRO]\033[m Please type an even integer.')
+                continue
+        except (ValueError, TypeError):
+            print('\033[31m[ERRO] Invalid data.\033[m Please type a valid integer.')
             continue
-        elif deck % 2 == 0 and deck <= 52:
-            break
-        elif deck % 2 == 1:
-            print('\033[31m[ERRO]\033[m Please type an even number.')
-            continue
-    except (ValueError, TypeError):
-        print('\033[31m[ERRO] Invalid data.\033[m Please type an valid number.')
-        continue
 
-# Creating the players
-player1 = []
-player2 = []
+    # Creating the players
+    player1 = []
+    player2 = []
 
-deal(player1, player2, deck)
+    deal(player1, player2, deck)
 
-rounds(player1, player2)
+    rounds(player1, player2)
 
-# Showing the final results
-if len(player1) == 0:
-    print(f'\033[1;93m{"<< PLAYER 2 HAS WON! >>":^35}\033[m')
-else:
-    print(f'\033[1;93m{"<< PLAYER 1 HAS WON! >>":^35}\033[m')
+    # Showing the final results
+    if len(player1) == 0:
+        print(f'\033[1;93m{"<< PLAYER 2 HAS WON! >>":^35}\033[m')
+    else:
+        print(f'\033[1;93m{"<< PLAYER 1 HAS WON! >>":^35}\033[m')
